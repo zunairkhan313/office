@@ -2,7 +2,7 @@ import Image from "next/image";
 import CarouselPage from "./Components/Banner";
 import image1 from '../public/Images/company.JPG'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-
+import map from "../public/Images/map.png"
 import CateSliders from "./Components/CategorySlider";
 import Special from "./Components/SpecialOffers";
 
@@ -98,6 +98,22 @@ export default function Home() {
         <div className="container mt-3">
           <CateSliders />
         </div><br />
+        <br /><br />
+        <div style={{ borderBottom: "3px solid #ff3333", width: "530px" }} className="container">
+          <h1 className="text-3xl text-center font-bold text-black mt-5 italic font-sans">SONGCHUAN GLOBAL NETWORK</h1>
+        </div>
+        <br />
+        <div className="mt-5">
+        <Image
+        src={map}
+        width={"100%"}
+        height={"100%"}
+        alt="map"
+        />
+        </div><br /><br />
+
+
+
         <div style={{ borderBottom: "3px solid #ff3333", width: "235px" }} className="container">
           <h1 className="text-2xl text-center font-bold text-black mt-5">SPECIAL OFFERS</h1>
         </div>
