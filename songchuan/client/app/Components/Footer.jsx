@@ -34,7 +34,7 @@ export default function Footer() {
                             <div className="font-normal text-[18px] mt-3">
                                 <p className="icon-hover">
                                     <FaPhoneAlt className="inline mr-2 text-black" />
-                                    <a href="tel:+8618553992709" className="hover:text-black text-black ">Tel: +92 322 8888520</a>
+                                    <a href="tel:+923337009944" className="hover:text-black text-black ">Tel: +92 333 7009944</a>
                                 </p>
                                 <p className="icon-hover">
                                     <MdAttachEmail className="inline mr-2 text-black" />
