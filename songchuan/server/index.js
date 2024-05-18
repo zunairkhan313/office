@@ -7,11 +7,10 @@ const PORT = process.env.PORT || 8080
 
 const app = express()
 app.use(cors())
+app.use(express.json({limit : "10mb"}))
 
 
 const schema = new mongoose.Schema({
-    title: String,
-    price: String,
     image: String,
 })
 const ShemaModel = mongoose.model("topic", schema)
@@ -25,16 +24,11 @@ app.get("/", (req, res) => {
 app.post("/upload", async (req, res) => {
     console.log(req.body);
     const topic = new ShemaModel({
-        title: req.body.title,
-        price: req.body.price,
-        image: req.body.image,
+        image: req.body.img,
     })
-    await title.save()
-    await price.save()
-    await image.save()
-    res.send({ message: "Topic created" })
+    await topic.save()
+    res.send({ message: "Topic created" , success: true })
 })
-
 
 mongoose.connect("mongodb+srv://zunairkhan742:iO9rcT2am2u2emEg@cluster0.tjdkfnf.mongodb.net/products")
     .then(() => {
