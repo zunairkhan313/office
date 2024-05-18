@@ -1,27 +1,36 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "../Components/hr.css"
 import Image from 'next/image';
-import slide1 from "../../public/Images/slide1.jpg";
-import slide2 from "../../public/Images/slide2.JPG";
-import slide3 from "../../public/Images/slide3.JPG";
-import slide4 from "../../public/Images/slide4.JPG";
-import slide5 from "../../public/Images/slide5.JPG";
-import slide6 from "../../public/Images/slide6.JPG";
-import slide7 from "../../public/Images/slide7.JPG";
-import slide8 from "../../public/Images/slide8.JPG";
-import slide9 from "../../public/Images/slide9.JPG";
-import { useRouter } from "next/navigation";
+// import slide1 from "../../public/Images/slide1.jpg";
+// import slide2 from "../../public/Images/slide2.JPG";
+// import slide3 from "../../public/Images/slide3.JPG";
+// import slide4 from "../../public/Images/slide4.JPG";
+// import slide5 from "../../public/Images/slide5.JPG";
+// import slide6 from "../../public/Images/slide6.JPG";
+// import slide7 from "../../public/Images/slide7.JPG";
+// import slide8 from "../../public/Images/slide8.JPG";
+// import slide9 from "../../public/Images/slide9.JPG";
+// import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import Link from 'next/link';
-
+import data_products from '../Assests/product';
 
 
 const Product = () => {
+    const [allImage, setAllImage] = useState([])
+    
+    const fetchimage = async () => {
+        const res = await fetch("http://localhost:8080/")
+        const data = await res.json()
+        setAllImage(data.data)
+        console.log(data);
+    }
     const { data: session } = useSession();
     var addButton;
+
 
     if (session?.user?.name === "ADMIN") {
 
@@ -36,6 +45,13 @@ const Product = () => {
             </>
         )
     }
+
+   
+
+    useEffect(() => {
+
+        fetchimage()
+    }, [])
 
 
     return (
@@ -63,76 +79,69 @@ const Product = () => {
 
                     <div className="hr-products"></div>
                     <div className="flex flex-wrap justify-around">
-                        <div style={{ "height": "100%", "width": 300 }} className='mt-5 shadow p-3 mb-5 bg-body-tertiary rounded'>
-                            <div className='flex flex-wrap justify-around'>
+                        {data_products.map((item, i) => {
+                            return (
 
-                                <Image
-                                    style={{ "height": "250px" }}
-                                    className='rounded object-cover'
-                                    width={300}
-                                    src={slide1}
-                                    alt={"tshirts"}
-                                />
-                            </div>
-                            <div className='mt-4'>
-                                <h4 className='text-2xl text-center font-bold tracking-wider'>Tools Set</h4>
-                                <br />
-                            </div>
-                            <div className="mt-2">
-                                <hr />
-                            </div>
-                            <div className='flex flex-wrap justify-around mt-3'>
-                                <div>
-                                    <button style={{ backgroundColor: "#ff3333" }} type="button" class="text-white hover:bg-green-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Buy now</button>
+
+                                <div style={{ "height": "100%", "width": 300 }} className='mt-5 shadow p-3 mb-5 bg-body-tertiary rounded'>
+                                    <div className='flex flex-wrap justify-around'>
+
+                                        <Image
+                                            style={{ "height": "250px" }}
+                                            className='rounded object-cover'
+                                            width={300}
+                                            src={item.image}
+                                            alt={"tshirts"}
+                                        />
+                                    </div>
+                                    <div className='mt-4'>
+                                        <h4 className='text-2xl ml-2 font-bold tracking-wider'>{item.title}</h4>
+                                        <br />
+                                    </div>
+                                    <div className='mt-1'>
+                                        <h4 className='text-md ml-2'>{item.description}</h4>
+
+                                    </div>
+                                    <div className='mt-2'>
+                                        <h4 className='text-md ml-2'>{item.price}</h4>
+                                        <br />
+                                    </div>
+                                    <div className="mt-2">
+                                        <hr />
+                                    </div>
+                                    <div className='flex flex-wrap justify-around mt-3'>
+                                        <div>
+                                            <button style={{ backgroundColor: "#ff3333" }} type="button" class="text-white hover:bg-green-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Buy now</button>
+                                        </div>
+                                        <div>
+                                            <button type="button" class="text-red-700 hover:bg-[#ff3333] focus:ring-4 focus:ring-white-300 font-medium rounded-lg text-sm px-3 py-2.5 me-2 mb-2 dark:bg-white-600 dark:hover:bg-white-700 focus:outline-none dark:focus:ring-white-800 hover:text-white font-bold">Add to cart</button>
+                                        </div>
+                                    </div>
+
                                 </div>
-                                <div>
-                                    <button type="button" class="text-red-700 hover:bg-[#ff3333] focus:ring-4 focus:ring-white-300 font-medium rounded-lg text-sm px-3 py-2.5 me-2 mb-2 dark:bg-white-600 dark:hover:bg-white-700 focus:outline-none dark:focus:ring-white-800 hover:text-white font-bold">Add to cart</button>
-                                </div>
-                            </div>
 
-                        </div>
+                            )
+                        })}
 
 
-                        <div style={{ "height": "100%", "width": 300 }} className='mt-5 shadow p-3 mb-5 bg-body-tertiary rounded'>
-                            <div className='flex flex-wrap justify-around'>
-
-                                <Image
-                                    style={{ "height": "250px" }}
-                                    className='rounded object-cover'
-                                    width={300}
-                                    src={slide2}
-                                    alt={"tshirts"}
-                                />
-                            </div>
-                            <div className='mt-4'>
-                                <h4 className='text-2xl text-center font-bold tracking-wider'>Sockets Series</h4>
-                                <br />
-
-                            </div>
-                            <div className="mt-2">
-                                <hr />
-                            </div>
-                            <div className='flex flex-wrap justify-around mt-3'>
-                                <div>
-                                    <button style={{ backgroundColor: "#ff3333" }} type="button" class="text-white hover:bg-green-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Buy now</button>
-                                </div>
-                                <div>
-                                    <button type="button" class="text-red-700 hover:bg-[#ff3333] focus:ring-4 focus:ring-white-300 font-medium rounded-lg text-sm px-3 py-2.5 me-2 mb-2 dark:bg-white-600 dark:hover:bg-white-700 focus:outline-none dark:focus:ring-white-800 hover:text-white font-bold">Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
 
 
                         <div style={{ "height": "100%", "width": 300 }} className='mt-5 shadow p-3 mb-5 bg-body-tertiary rounded'>
                             <div className='flex flex-wrap justify-around'>
+                                {
+                                    allImage?.map(el => {
+                                        return (
+                                            <Image
+                                                style={{ "height": "250px" }}
+                                                className='rounded object-cover'
+                                                width={300}
+                                                src={el.image}
+                                                alt={"tshirts"}
+                                            />
 
-                                <Image
-                                    style={{ "height": "250px" }}
-                                    className='rounded object-cover'
-                                    width={300}
-                                    src={slide3}
-                                    alt={"tshirts"}
-                                />
+                                        )
+                                    })
+                                }
                             </div>
                             <div className='mt-4'>
                                 <h4 className='text-2xl text-center font-bold tracking-wider'>Screwdriver Series</h4>
@@ -295,9 +304,9 @@ const Product = () => {
                             </div>
 
                         </div> */}
-                        <div style={{ height: "100%", width: 300 }} className='mt-5 shadow p-3 mb-5 bg-body-tertiary rounded'>
+                        {/* <div style={{ height: "100%", width: 300 }} className='mt-5 shadow p-3 mb-5 bg-body-tertiary rounded'>
                             <div className='flex flex-wrap justify-around'>
-                                {/* {picture && ( */}
+                               
                                 <Image
                                     style={{ height: "250px" }}
                                     className='rounded object-cover'
@@ -306,7 +315,7 @@ const Product = () => {
                                     src={slide9}
                                     alt="tshirts"
                                 />
-                                {/* )} */}
+                             
                             </div>
                             <div className='mt-4'>
                                 <h4 className='text-2xl text-center font-bold tracking-wider'>Measuring Tools</h4>
@@ -323,7 +332,7 @@ const Product = () => {
                                     <button type="button" class="text-red-700 hover:bg-[#ff3333] focus:ring-4 focus:ring-white-300 font-medium rounded-lg text-sm px-3 py-2.5 me-2 mb-2 dark:bg-white-600 dark:hover:bg-white-700 focus:outline-none dark:focus:ring-white-800 hover:text-white font-bold">Add to cart</button>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
 
 
                     </div>
